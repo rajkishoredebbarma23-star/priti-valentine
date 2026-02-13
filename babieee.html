@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Babieee 💖</title>
+
+<style>
+body {
+    background: linear-gradient(to bottom right, #ffccd5, #ffe6f0);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+    padding: 30px;
+    color: #b30059;
+    overflow: hidden;
+    margin: 0;
+    transition: background 1s ease;
+    cursor: pointer; /* indicate click anywhere */
+}
+
+.glowBackground { background: linear-gradient(to bottom right, #ff1493, #ff66b2); }
+
+h1 { font-size: 3em; }
+
+.message {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,105,180,0.4);
+    font-size: 1.2em;
+    line-height: 1.6em;
+}
+
+.buttons { margin-top: 20px; position: relative; height: 150px; }
+
+button {
+    background-color: #ff4d88;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 30px;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.2s;
+}
+
+#yesBtn { left: 35%; }
+#noBtn { left: 55%; }
+#foreverBtn { left: 45%; top: 70px; display: none; }
+
+button:hover { background-color: #ff1a66; }
+
+.gif { margin: 20px 0; }
+
+.heart { position: fixed; top: -10px; font-size: 24px; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(100vh); opacity:0; } }
+
+.shake { animation: shake 0.5s; }
+@keyframes shake {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(-10px,5px); }
+    50% { transform: translate(10px,-5px); }
+    75% { transform: translate(-10px,5px); }
+    100% { transform: translate(0,0); }
+}
+
+.loveText {
+    position: fixed; top: 35%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 3em; color: white; text-shadow: 0 0 20px #ff0066,0 0 40px #ff3399;
+    opacity: 0; transition: opacity 1s ease;
+}
+.showLove { opacity: 1; }
+
+.firework {
+    position: fixed; width: 8px; height: 8px; border-radius: 50%; background: gold;
+    animation: explode 1s ease-out forwards;
+}
+@keyframes explode { to { transform: translate(var(--x), var(--y)); opacity:0; } }
+</style>
+</head>
+
+<body id="body">
+
+<h1>💖 Will You Be My Valentine, Babieee? 💖</h1>
+
+<div class="gif"><img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="250"></div>
+
+<div class="message">
+<p>My sweetest babieee 💕,</p>
+<p>You are my happiness, my peace, my everything 🥹💖. Every moment with you feels magical.</p>
+<p>I promise to love you, protect you, and choose you every single day 💞✨.</p>
+
+<h2>Will you be my Valentine? 💘🥰</h2>
+
+<div class="buttons">
+<button id="yesBtn">Yes 💕</button>
+<button id="noBtn" onmouseover="moveButton()">No 😜</button>
+<button id="foreverBtn" onclick="foreverClicked()">Forever? 💍</button>
+</div>
+</div>
+
+<div class="gif"><img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" width="250"></div>
+
+<div id="loveMessage" class="loveText">I LOVE YOU BABIEEE 💖✨</div>
+
+<!-- Audio -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="khat.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const body = document.getElementById("body");
+const music = document.getElementById("bgMusic");
+const yesBtn = document.getElementById("yesBtn");
+
+// Play music on first click anywhere
+let musicStarted = false;
+body.addEventListener("click", () => {
+    if (!musicStarted) {
+        music.play().catch(e => console.log("Tap again to start music 💕"));
+        musicStarted = true;
+    }
+});
+
+// Yes button click
+yesBtn.addEventListener("click", () => {
+
+    music.play().catch(e => console.log("Music failed to play"));
+
+    body.classList.add("shake", "glowBackground");
+    setTimeout(() => body.classList.remove("shake"), 500);
+
+    document.getElementById("loveMessage").classList.add("showLove");
+    document.getElementById("foreverBtn").style.display = "inline-block";
+
+    for(let i=0;i<80;i++) createHeart();
+    for(let i=0;i<30;i++) createFirework();
+});
+
+// Forever button click
+function foreverClicked() {
+    for(let i=0;i<150;i++) createHeart();
+    for(let i=0;i<80;i++) createFirework();
+    document.getElementById("loveMessage").innerHTML="FOREVER WITH YOU BABIEEE 💍💖✨";
+}
+
+function moveButton(){
+    var button = document.getElementById("noBtn");
+    button.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    button.style.top = Math.random() * (window.innerHeight - 100) + "px";
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}
+
+function createFirework() {
+    const firework = document.createElement("div");
+    firework.classList.add("firework");
+    firework.style.left = window.innerWidth/2 + "px";
+    firework.style.top = window.innerHeight/2 + "px";
+    const x = (Math.random()-0.5)*400 + "px";
+    const y = (Math.random()-0.5)*400 + "px";
+    firework.style.setProperty('--x', x);
+    firework.style.setProperty('--y', y);
+    document.body.appendChild(firework);
+    setTimeout(() => firework.remove(), 1000);
+}
+</script>
+
+</body>
+</html>
